@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 function Sponsors() {
     return (
-        <SponsorsContainer>
+        <SponsorsContainer id="sponsors">
             <Typography>Sponsors</Typography>
             <ImagesContainer>
                 <Image

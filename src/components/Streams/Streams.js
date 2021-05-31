@@ -32,9 +32,8 @@ function Streams() {
         },
     ];
 
-    console.log(events[0]);
     return (
-        <StreamsContainer>
+        <StreamsContainer id="watch">
             {events.map((event) => (
                 <Stream eventData={event} />
             ))}

@@ -1,13 +1,18 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-scroll";
 
 function Header() {
     return (
         <HeaderContainer>
             <Logo>EventStream</Logo>
             <NavContainer>
-                <Typography>Watch</Typography>
-                <Typography>Contact</Typography>
+                <Link to="watch" smooth duration={500}>
+                    <Typography>Watch</Typography>
+                </Link>
+                <Link to="sponsors" smooth duration={500}>
+                    <Typography>Sponsors</Typography>
+                </Link>
             </NavContainer>
         </HeaderContainer>
     );
