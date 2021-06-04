@@ -6,7 +6,7 @@ function Player() {
     return (
         <PlayerContainer>
             <ReactPlayer
-                url="https://www.youtube.com/watch?v=ysz5S6PUM-U"
+                url="https://www.youtube.com/watch?v=5qap5aO4i9A"
                 controls
                 width="100%"
                 height="100%"
