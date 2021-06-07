@@ -1,41 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Stream from "../Streams/Stream/Stream";
-import images from "../../assets/images/images";
+import { db } from "../../firebase";
 
 function Streams() {
-    const events = [
-        {
-            name: "Concert",
-            img: images.concert,
-            date: "11.11.1111",
-        },
-        {
-            name: "Cooking",
-            img: images.cooking,
-            date: "11.11.1111",
-        },
-        {
-            name: "Guitar",
-            img: images.guitar,
-            date: "11.11.1111",
-        },
-        {
-            name: "Football",
-            img: images.football,
-            date: "11.11.1111",
-        },
-        {
-            name: "DJ",
-            img: images.dj,
-            date: "11.11.1111",
-        },
-    ];
+    const [events, setEvents] = useState([]);
+
+    useEffect(() => {
+        db.collection("events")
+            .get()
+            .then((querySnapshot) => {
+                setEvents(
+                    querySnapshot.docs.map((doc) => ({
+                        id: doc.id,
+                        data: doc.data(),
+                    }))
+                );
+            });
+    }, []);
 
     return (
         <StreamsContainer id="watch">
-            {events.map((event) => (
-                <Stream eventData={event} />
+            {events.map(({ id, data }) => (
+                <Stream
+                    key={id}
+                    id={id}
+                    name={data.name}
+                    timestamp={data.timestamp.toDate().toDateString()}
+                    image={data.image}
+                    description={data.description}
+                />
             ))}
         </StreamsContainer>
     );

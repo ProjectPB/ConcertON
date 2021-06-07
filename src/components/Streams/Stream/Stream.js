@@ -2,15 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
-function Stream({ eventData }) {
+function Stream({ id, name, description, timestamp, image }) {
     const history = useHistory();
 
     return (
         <StreamContainer>
-            <Image src={eventData.img} alt={eventData.name} />
-            <Name>{eventData.name}</Name>
-            <Date>{eventData.date}</Date>
-            <Button onClick={() => history.push('/live/asdasd')}>WATCH</Button>
+            <Image src={image} alt={name} />
+            <Name>{name}</Name>
+            <Date>{timestamp}</Date>
+            <Button onClick={() => history.push(`/live/${id}`)}>WATCH</Button>
         </StreamContainer>
     );
 }

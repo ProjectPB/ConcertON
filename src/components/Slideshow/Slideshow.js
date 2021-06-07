@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import images from "../../assets/images/images";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, {
@@ -13,10 +12,27 @@ import "swiper/swiper.min.css";
 import "swiper/components/effect-fade/effect-fade.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import "swiper/components/navigation/navigation.min.css";
+import { db } from "../../firebase";
 
 SwiperCore.use([EffectFade, Autoplay, Pagination, Navigation]);
 
 function Slideshow() {
+    const [events, setEvents] = useState([]);
+
+    useEffect(() => {
+        db.collection("events")
+            .where("important", "==", true)
+            .get()
+            .then((querySnapshot) => {
+                setEvents(
+                    querySnapshot.docs.map((doc) => ({
+                        id: doc.id,
+                        data: doc.data(),
+                    }))
+                );
+            });
+    }, []);
+
     return (
         <Swiper
             loop={true}
@@ -31,26 +47,12 @@ function Slideshow() {
             }}
             navigation={true}
         >
-            <SwiperSlide>
-                <Image src={images.cooking} />
-                <Caption>COOKING</Caption>
-            </SwiperSlide>
-            <SwiperSlide>
-                <Image src={images.guitar} />
-                <Caption>CONCERT</Caption>
-            </SwiperSlide>
-            <SwiperSlide>
-                <Image src={images.dj} />
-                <Caption>DJ</Caption>
-            </SwiperSlide>
-            <SwiperSlide>
-                <Image src={images.concert} />
-                <Caption>FOOTBALL</Caption>
-            </SwiperSlide>
-            <SwiperSlide>
-                <Image src={images.football} />
-                <Caption>GUITAR</Caption>
-            </SwiperSlide>
+            {events.map(({ id, data }) => (
+                <SwiperSlide key={id}>
+                    <Image src={data.image} />
+                    <Caption>{data.name}</Caption>
+                </SwiperSlide>
+            ))}
         </Swiper>
     );
 }

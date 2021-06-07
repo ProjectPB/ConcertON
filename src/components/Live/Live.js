@@ -1,19 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import Chat from "./Chat";
 import Player from "./Player";
+import { db } from "../../firebase";
 
 function Live() {
     const history = useHistory();
+    const [messages, setMessages] = useState([]);
+    const [data, setData] = useState([]);
+    const { eventId } = useParams();
 
-    return (
+    useEffect(() => {
+        db.collection("events")
+            .doc(eventId)
+            .collection("messages")
+            .orderBy("timestamp", "asc")
+            .onSnapshot((snapshot) =>
+                setMessages(snapshot.docs.map((doc) => doc.data()))
+            );
+
+        db.collection("events")
+            .doc(eventId)
+            .get()
+            .then((doc) => {
+                setData(doc.data());
+            });
+    }, [eventId]);
+
+    return !data ? (
+        history.goBack()
+    ) : (
         <LiveContainer>
             <Logo onClick={() => history.push("/")}>EventStream</Logo>
             <Container>
                 <Player />
-                <Chat />
+                <Chat messages={messages} />
             </Container>
         </LiveContainer>
     );

@@ -1,14 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
-function Message({ author, text, timestamp }) {
+function Message({ author, text }) {
     return (
         <MessageContainer>
             <MessageBody>
-                <Author>{author}</Author>
-                <Text>{text}</Text>
+                <Author>
+                    {author}
+                    <Text>{text}</Text>
+                </Author>
             </MessageBody>
-            <Timestamp>{timestamp}</Timestamp>
         </MessageContainer>
     );
 }
@@ -16,7 +17,6 @@ function Message({ author, text, timestamp }) {
 export default Message;
 
 const MessageContainer = styled.div`
-    border-bottom: 1px solid lightgray;
     margin-right: 5px;
     padding: 2.5px 0;
 `;
@@ -33,17 +33,9 @@ const Author = styled.p`
     font-weight: 650;
 `;
 
-const Text = styled.h3`
-    width: fit-content;
-    border-radius: 5px;
+const Text = styled.span`
+    margin-left: 5px;
     font-size: 12px;
     font-weight: 400;
     word-break: break-all;
-`;
-const Timestamp = styled.p`
-    margin-left: 5px;
-    font-size: 10px;
-    font-weight: 400;
-    color: gray;
-    float: right;
 `;
