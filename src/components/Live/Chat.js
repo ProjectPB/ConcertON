@@ -95,20 +95,21 @@ const ChatContainer = styled.form`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    flex: 0.25;
     width: 100%;
+    height: 100%;
+    flex: 0.25;
     max-width: 450px;
-    margin: 10px auto;
     padding: 5px;
     background-color: white;
     overflow: hidden;
-    outline: 1px solid darkblue;
-    @media (max-width: 1200px) {
-        flex: 0.5;
-    }
-    @media (max-width: 768px) {
-        max-width: 350px;
+    border-radius: 5px;
+    margin-left: 30px;
+    margin-right: 10px;
+    @media (max-width: 1000px) {
+        width: 100%;
         margin: 0 auto;
+        max-width: 600px;
+        flex: 1;
     }
 `;
 const Header = styled.h1`

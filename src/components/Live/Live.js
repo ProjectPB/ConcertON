@@ -33,9 +33,11 @@ function Live() {
         history.goBack()
     ) : (
         <LiveContainer>
-            <Logo onClick={() => history.push("/")}>EventStream</Logo>
+            <LogoContainer>
+                <Logo onClick={() => history.push("/")}>EventStream</Logo>
+            </LogoContainer>
             <Container>
-                <Player />
+                <Player data={data} />
                 <Chat messages={messages} />
             </Container>
         </LiveContainer>
@@ -44,34 +46,41 @@ function Live() {
 
 const LiveContainer = styled.div`
     background-color: black;
-    height: calc(100vh - 55px);
+    height: 100vh;
     @media (max-width: 1200px) {
         height: 100vh;
     }
 `;
 
+const LogoContainer = styled.div`
+    width: 100%;
+`;
+
 const Logo = styled.h1`
     text-align: center;
-    height: 55px;
-    font-size: 32px;
+    font-size: 25px;
     color: white;
-    padding: 10px;
     cursor: pointer;
+    width: fit-content;
+    padding: 10px;
+    margin: 0 auto;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    @media (max-width: 768px) {
-        font-size: 24px;
-    }
 `;
 
 const Container = styled.div`
     display: flex;
-    height: 100%;
     background-color: black;
-    @media (max-width: 1200px) {
+    height: calc(100vh - 55px);
+    width: 100vw;
+    margin: 0 auto;
+    padding-bottom: 30px;
+    justify-content: center;
+    @media (max-width: 1000px) {
         flex-direction: column;
+        padding: 0;
     }
 `;
 
