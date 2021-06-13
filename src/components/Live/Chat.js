@@ -9,15 +9,27 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/userSlice";
 import UserInput from "./UserInput";
 
-function Chat({ messages }) {
-    const [input, setInput] = useState("");
+function Chat() {
+    const username = useSelector(selectUser);
     const { eventId } = useParams();
     const messagesEnd = useRef();
-    const username = useSelector(selectUser);
+    const [input, setInput] = useState("");
+    const [messages, setMessages] = useState([]);
+
+    useEffect(() => {
+        db.collection("events")
+            .doc(eventId)
+            .collection("messages")
+            .orderBy("timestamp", "desc")
+            .limit(100)
+            .onSnapshot((snapshot) =>
+                setMessages(snapshot.docs.map((doc) => doc.data()))
+            );
+    }, [eventId]);
 
     useEffect(() => {
         scrollToBottom();
-    }, [messages]);
+    }, []);
 
     const scrollToBottom = () => {
         messagesEnd.current?.scrollIntoView({ behavior: "smooth" });
@@ -56,10 +68,10 @@ function Chat({ messages }) {
         <ChatContainer>
             <Header>Comments</Header>
             <Messages>
+                <MessagesEndRef ref={messagesEnd} />
                 {messages.map((message) => (
                     <Message author={message?.author} text={message?.text} />
                 ))}
-                <MessagesEndRef ref={messagesEnd} />
             </Messages>
             {username ? (
                 <InputContainer>
@@ -91,7 +103,7 @@ function Chat({ messages }) {
     );
 }
 
-const ChatContainer = styled.form`
+const ChatContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -125,7 +137,7 @@ const Messages = styled.div`
     overflow-y: scroll;
     margin: 5px 0 5px 0;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: right;
     flex: 1;
 `;

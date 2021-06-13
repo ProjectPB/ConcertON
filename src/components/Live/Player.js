@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
+import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { db } from "../../firebase";
 
-function Player({ data }) {
-    console.log(data.timestamp);
-    return (
+function Player() {
+    const history = useHistory();
+    const [data, setData] = useState([]);
+    const { eventId } = useParams();
+
+    useEffect(() => {
+        db.collection("events")
+            .doc(eventId)
+            .get()
+            .then((doc) => {
+                setData(doc.data());
+            });
+    }, [eventId]);
+
+    return !data ? (
+        history.goBack()
+    ) : (
         <PlayerContainer>
             <Screen>
                 <ReactPlayer
