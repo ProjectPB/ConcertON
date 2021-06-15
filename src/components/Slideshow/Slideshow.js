@@ -35,11 +35,12 @@ function Slideshow() {
 
     return (
         <Swiper
+            style={{ backgroundColor: "black" }}
             loop={true}
             effect={"fade"}
             centeredSlides={true}
             autoplay={{
-                delay: 5000,
+                delay: 3000,
                 disableOnInteraction: false,
             }}
             pagination={{
@@ -49,30 +50,75 @@ function Slideshow() {
         >
             {events.map(({ id, data }) => (
                 <SwiperSlide key={id}>
-                    <Image src={data.image} />
-                    <Caption>{data.name}</Caption>
+                    <ImageContainer>
+                        <Image src={data.image} />
+                    </ImageContainer>
+                    <CaptionContainer>
+                        <Caption>
+                            <Title>{data.name}</Title>
+                            <Date>
+                                {data.timestamp.toDate().toDateString()}
+                            </Date>
+                        </Caption>
+                    </CaptionContainer>
                 </SwiperSlide>
             ))}
         </Swiper>
     );
 }
 
-const Image = styled.img`
+const ImageContainer = styled.div`
+    -webkit-box-shadow: inset 0px -10px 30px 40px rgba(0, 0, 0, 1);
+    -moz-box-shadow: inset 0px -10px 30px 40px rgba(0, 0, 0, 1);
+    box-shadow: inset 0px -10px 30px 40px rgba(0, 0, 0, 1);
+    position: relative;
     width: 100%;
     height: 90vh;
-    object-fit: cover;
-    margin-bottom: -4px;
+    @media (max-width: 768px) {
+        height: 45vh;
+    }
 `;
 
-const Caption = styled.span`
+const Image = styled.img`
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: relative;
+    object-fit: cover;
+    z-index: -1;
+`;
+
+const CaptionContainer = styled.div`
+    top: 0;
     position: absolute;
-    outline: 1px solid;
-    background-color: rgba(100, 100, 100, 0.5);
-    font-size: 20px;
-    padding: 20px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+`;
+
+const Caption = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+`;
+
+const Title = styled.h1`
     color: white;
-    top: 45%;
-    left: 10%;
+    font-size: 50px;
+    @media (max-width: 768px) {
+        font-size: 25px;
+    }
+`;
+const Date = styled.h2`
+    color: white;
+    font-size: 30px;
+    font-weight: 300;
+    @media (max-width: 768px) {
+        font-size: 15px;
+    }
 `;
 
 export default Slideshow;

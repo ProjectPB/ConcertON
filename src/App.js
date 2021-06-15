@@ -31,5 +31,7 @@ function App() {
 export default App;
 
 const AppContainer = styled.div`
-    background-color: lightgray;
+    background-color: black;
+    max-width: 1400px;
+    margin: 0 auto;
 `;
