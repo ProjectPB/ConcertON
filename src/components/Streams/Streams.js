@@ -28,7 +28,6 @@ function Streams() {
                     name={data.name}
                     timestamp={data.timestamp.toDate().toDateString()}
                     image={data.image}
-                    description={data.description}
                 />
             ))}
         </StreamsContainer>
@@ -38,8 +37,11 @@ function Streams() {
 const StreamsContainer = styled.div`
     display: flex;
     flex-direction: row;
-    padding: 10px;
     flex-wrap: wrap;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        margin-right: 40px;
+    }
 `;
 
 export default Streams;

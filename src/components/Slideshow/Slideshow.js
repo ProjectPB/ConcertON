@@ -75,7 +75,7 @@ const ImageContainer = styled.div`
     width: 100%;
     height: 90vh;
     @media (max-width: 768px) {
-        height: 45vh;
+        height: 55vh;
     }
 `;
 
@@ -107,9 +107,13 @@ const Caption = styled.div`
 
 const Title = styled.h1`
     color: white;
+    text-align: center;
+    width: 80%;
     font-size: 50px;
+    margin-bottom: 10px;
     @media (max-width: 768px) {
         font-size: 25px;
+        width: 70%;
     }
 `;
 const Date = styled.h2`
