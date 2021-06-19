@@ -33,7 +33,7 @@ function Player() {
                 />
                 <TimerContainer>
                     <Typography>Event starts at</Typography>
-                    <Timer>33333</Timer>
+                    <Timer>{data.timestamp?.toDate()?.toDateString()}</Timer>
                 </TimerContainer>
             </Screen>
             <Title>{data.name}</Title>
@@ -46,7 +46,7 @@ const PlayerContainer = styled.div`
     display: flex;
     flex-direction: column;
     margin-left: 10px;
-    @media (max-width: 1000px) {
+    @media (max-width: 1200px) {
         flex: 0;
         margin: 0 auto;
         max-width: 600px;
@@ -69,15 +69,27 @@ const TimerContainer = styled.div`
 const Typography = styled.h2`
     color: white;
     font-size: 20px;
+    @media (max-width: 1200px) {
+        font-size: 12px;
+    }
 `;
 const Timer = styled.h3`
     color: white;
     font-size: 50px;
+    @media (max-width: 1200px) {
+        font-size: 30px;
+    }
 `;
 
 const Title = styled.h1`
     color: white;
-    margin-top: 5px;
+    margin-top: 10px;
+    font-size: 24px;
+    @media (max-width: 1200px) {
+        font-size: 16px;
+        margin-left: 10px;
+        margin-top: 5px;
+    }
 `;
 
 export default Player;

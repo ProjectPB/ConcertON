@@ -110,14 +110,13 @@ const ChatContainer = styled.div`
     width: 100%;
     height: 100%;
     flex: 0.25;
-    max-width: 450px;
     padding: 5px;
     background-color: white;
     overflow: hidden;
     border-radius: 5px;
     margin-left: 30px;
     margin-right: 10px;
-    @media (max-width: 1000px) {
+    @media (max-width: 1200px) {
         width: 100%;
         margin: 0 auto;
         max-width: 600px;
@@ -138,8 +137,12 @@ const Messages = styled.div`
     margin: 5px 0 5px 0;
     display: flex;
     flex-direction: column-reverse;
-    align-items: right;
     flex: 1;
+    > * {
+        &:first-child {
+            margin-top: auto !important;
+        }
+    }
 `;
 
 const MessagesEndRef = styled.div``;

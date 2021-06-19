@@ -24,9 +24,8 @@ function Live() {
 const LiveContainer = styled.div`
     background-color: black;
     height: 100vh;
-    @media (max-width: 1200px) {
-        height: 100vh;
-    }
+    max-width: 1400px;
+    margin: 0 auto;
 `;
 
 const LogoContainer = styled.div`
@@ -35,7 +34,7 @@ const LogoContainer = styled.div`
 
 const Logo = styled.h1`
     text-align: center;
-    font-size: 25px;
+    font-size: 24px;
     color: white;
     cursor: pointer;
     width: fit-content;
@@ -51,11 +50,10 @@ const Container = styled.div`
     display: flex;
     background-color: black;
     height: calc(100vh - 55px);
-    width: 100vw;
     margin: 0 auto;
     padding-bottom: 30px;
     justify-content: center;
-    @media (max-width: 1000px) {
+    @media (max-width: 1200px) {
         flex-direction: column;
         padding: 0;
     }
