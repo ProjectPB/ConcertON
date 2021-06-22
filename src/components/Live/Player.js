@@ -3,10 +3,12 @@ import ReactPlayer from "react-player";
 import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { db } from "../../firebase";
+import CountdownTimer from "./CountdownTimer";
 
 function Player() {
     const history = useHistory();
     const [data, setData] = useState([]);
+    const [timeReady, setTimeReady] = useState(false);
     const { eventId } = useParams();
 
     useEffect(() => {
@@ -15,6 +17,7 @@ function Player() {
             .get()
             .then((doc) => {
                 setData(doc.data());
+                setTimeReady(true);
             });
     }, [eventId]);
 
@@ -33,7 +36,11 @@ function Player() {
                 />
                 <TimerContainer>
                     <Typography>Event starts at</Typography>
-                    <Timer>{data.timestamp?.toDate()?.toDateString()}</Timer>
+                    {timeReady && (
+                        <CountdownTimer
+                            date={data?.timestamp?.seconds * 1000}
+                        />
+                    )}
                 </TimerContainer>
             </Screen>
             <Title>{data.name}</Title>
@@ -53,7 +60,6 @@ const PlayerContainer = styled.div`
         padding-bottom: 10px;
     }
 `;
-
 const Screen = styled.div`
     position: relative;
 `;
@@ -73,14 +79,6 @@ const Typography = styled.h2`
         font-size: 12px;
     }
 `;
-const Timer = styled.h3`
-    color: white;
-    font-size: 50px;
-    @media (max-width: 1200px) {
-        font-size: 30px;
-    }
-`;
-
 const Title = styled.h1`
     color: white;
     margin-top: 10px;
