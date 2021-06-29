@@ -13,11 +13,21 @@ import "swiper/components/effect-fade/effect-fade.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import { db } from "../../firebase";
+import { loadSlideshow } from "../../redux/loadingSlice";
+import { useDispatch } from "react-redux";
 
 SwiperCore.use([EffectFade, Autoplay, Pagination, Navigation]);
 
 function Slideshow() {
     const [events, setEvents] = useState([]);
+    const [loaded, setLoaded] = useState(false);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (loaded) {
+            dispatch(loadSlideshow(true));
+        }
+    }, [loaded, dispatch]);
 
     useEffect(() => {
         db.collection("events")
@@ -35,7 +45,6 @@ function Slideshow() {
 
     return (
         <Swiper
-            style={{ backgroundColor: "black" }}
             loop={true}
             effect={"fade"}
             centeredSlides={true}
@@ -47,11 +56,15 @@ function Slideshow() {
                 clickable: true,
             }}
             navigation={true}
+            style={loaded ? {} : { visibility: "hidden" }}
         >
             {events.map(({ id, data }) => (
                 <SwiperSlide key={id}>
                     <ImageContainer>
-                        <Image src={data.image} />
+                        <Image
+                            src={data.image}
+                            onLoad={() => setLoaded(true)}
+                        />
                     </ImageContainer>
                     <CaptionContainer>
                         <Caption>

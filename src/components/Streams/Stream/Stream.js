@@ -1,16 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loadStreams } from "../../../redux/loadingSlice";
 
 function Stream({ id, name, timestamp, image }) {
     const history = useHistory();
+    const [loaded, setLoaded] = useState(false);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (loaded) {
+            dispatch(loadStreams(true));
+        }
+    }, [loaded, dispatch]);
 
     return (
-        <StreamContainer>
+        <StreamContainer style={loaded ? {} : { visibility: "hidden" }}>
             <Image
                 src={image}
                 alt={name}
+                loading="lazy"
                 onClick={() => history.push(`/live/${id}`)}
+                onLoad={() => setLoaded(true)}
             />
             <DataContainer>
                 <Name>{name}</Name>

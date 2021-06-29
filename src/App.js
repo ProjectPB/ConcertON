@@ -1,14 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectLoading } from "./redux/loadingSlice";
 
 import Header from "./components/Header/Header";
 import Slideshow from "./components/Slideshow/Slideshow";
 import Sponsors from "./components/Sponsors/Sponsors";
 import Streams from "./components/Streams/Streams";
 import Live from "./components/Live/Live";
+import Loading from "./components/Loading/Loading";
 
 function App() {
+    const [loading, setLoading] = useState(true);
+    const loadingStates = useSelector(selectLoading);
+
+    useEffect(() => {
+        if (
+            loadingStates.slideshowLoaded &&
+            loadingStates.sponsorsLoaded &&
+            loadingStates.streamsLoaded
+        ) {
+            setLoading(false);
+        }
+    }, [loadingStates, loading]);
+
     return (
         <Router>
             <Switch>
@@ -16,7 +32,8 @@ function App() {
                     <Live />
                 </Route>
                 <Route path="/">
-                    <AppContainer>
+                    {loading && <Loading />}
+                    <AppContainer style={loading ? { display: "none" } : {}}>
                         <Header />
                         <Slideshow />
                         <Streams />
