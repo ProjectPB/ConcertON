@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import ReactPlayer from "react-player";
 import { useHistory, useParams } from "react-router-dom";
+import ReactPlayer from "react-player";
 import styled from "styled-components";
 import { db } from "../../firebase";
 import CountdownTimer from "./CountdownTimer";
+import ReactLoading from "react-loading";
 
 function Player() {
     const history = useHistory();
@@ -34,14 +35,18 @@ function Player() {
                     width="100%"
                     height="100%"
                 />
-                <TimerContainer>
-                    <Typography>Event starts at</Typography>
-                    {timeReady && (
+                {timeReady ? (
+                    <TimerContainer>
+                        <Typography>Event starts at</Typography>
                         <CountdownTimer
                             date={data?.timestamp?.seconds * 1000}
                         />
-                    )}
-                </TimerContainer>
+                    </TimerContainer>
+                ) : (
+                    <LoadingContainer>
+                        <ReactLoading type="bubbles" width={100} />
+                    </LoadingContainer>
+                )}
             </Screen>
             <Title>{data.name}</Title>
         </PlayerContainer>
@@ -72,6 +77,14 @@ const TimerContainer = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
 `;
+
+const LoadingContainer = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`;
+
 const Typography = styled.h2`
     color: white;
     font-size: 20px;
