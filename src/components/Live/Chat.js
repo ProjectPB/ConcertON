@@ -5,34 +5,69 @@ import firebase from "firebase/app";
 import { db } from "../../firebase";
 import Message from "./Message";
 import SendIcon from "@material-ui/icons/Send";
+import UnfoldMoreIcon from "@material-ui/icons/UnfoldMore";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/userSlice";
 import UserInput from "./UserInput";
+import { UnfoldMore } from "@material-ui/icons";
 
 function Chat() {
     const username = useSelector(selectUser);
     const { eventId } = useParams();
-    const messagesEnd = useRef();
+    const messagesBottom = useRef();
+    const messagesTop = useRef();
     const [input, setInput] = useState("");
     const [messages, setMessages] = useState([]);
+    const [nextMessages, setNextMessages] = useState([]);
+    const [lastVisibleMessage, setLastVisibleMessage] = useState();
 
     useEffect(() => {
         db.collection("events")
             .doc(eventId)
             .collection("messages")
             .orderBy("timestamp", "desc")
-            .limit(100)
+            .limit(50)
             .onSnapshot((snapshot) =>
-                setMessages(snapshot.docs.map((doc) => doc.data()))
+                setMessages(
+                    snapshot.docs.map((doc) => ({
+                        id: doc.id,
+                        data: doc.data(),
+                    }))
+                )
             );
+        scrollToBottom();
     }, [eventId]);
 
     useEffect(() => {
-        scrollToBottom();
-    }, []);
+        setLastVisibleMessage(messages[messages.length - 1]);
+    }, [messages]);
+
+    useEffect(() => {
+        setMessages(messages.concat(nextMessages));
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [nextMessages]);
+
+    const getNextMessages = (e) => {
+        e.preventDefault();
+        db.collection("events")
+            .doc(eventId)
+            .collection("messages")
+            .orderBy("timestamp", "desc")
+            .startAfter(lastVisibleMessage?.data?.timestamp)
+            .limit(50)
+            .onSnapshot((snapshot) =>
+                setNextMessages(
+                    snapshot.docs.map((doc) => ({
+                        id: doc.id,
+                        data: doc.data(),
+                    }))
+                )
+            );
+    };
 
     const scrollToBottom = () => {
-        messagesEnd.current?.scrollIntoView({ behavior: "smooth" });
+        messagesBottom.current?.scrollIntoView({ behavior: "smooth" });
     };
 
     const sendMessage = (e) => {
@@ -68,10 +103,11 @@ function Chat() {
         <ChatContainer>
             <Header>Comments</Header>
             <Messages>
-                <MessagesEndRef ref={messagesEnd} />
-                {messages.map((message) => (
-                    <Message author={message?.author} text={message?.text} />
+                <MessagesBottomRef ref={messagesBottom} />
+                {messages.map(({ id, data }) => (
+                    <Message key={id} author={data?.author} text={data?.text} />
                 ))}
+                <MoreIcon onClick={getNextMessages} ref={messagesTop} />
             </Messages>
             {username ? (
                 <InputContainer>
@@ -145,7 +181,18 @@ const Messages = styled.div`
     }
 `;
 
-const MessagesEndRef = styled.div``;
+const MessagesBottomRef = styled.div``;
+
+const MoreIcon = styled(UnfoldMoreIcon)`
+    padding: 5px;
+    margin: 0 auto;
+    margin-top: 5px;
+    color: darkblue;
+    background-color: whitesmoke;
+    cursor: pointer;
+    border-radius: 100%;
+    border: 1px solid;
+`;
 
 const InputContainer = styled.div`
     position: relative;
