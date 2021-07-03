@@ -9,7 +9,6 @@ import UnfoldMoreIcon from "@material-ui/icons/UnfoldMore";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/userSlice";
 import UserInput from "./UserInput";
-import { UnfoldMore } from "@material-ui/icons";
 
 function Chat() {
     const username = useSelector(selectUser);
@@ -20,6 +19,7 @@ function Chat() {
     const [messages, setMessages] = useState([]);
     const [nextMessages, setNextMessages] = useState([]);
     const [lastVisibleMessage, setLastVisibleMessage] = useState();
+    const [messagesCounter, setMessagesCounter] = useState(0);
 
     useEffect(() => {
         db.collection("events")
@@ -36,6 +36,15 @@ function Chat() {
                 )
             );
         scrollToBottom();
+    }, [eventId]);
+
+    useEffect(() => {
+        db.collection("events")
+            .doc(eventId)
+            .collection("messages")
+            .onSnapshot((snapshot) => {
+                setMessagesCounter(snapshot.docs.length);
+            });
     }, [eventId]);
 
     useEffect(() => {
@@ -107,7 +116,9 @@ function Chat() {
                 {messages.map(({ id, data }) => (
                     <Message key={id} author={data?.author} text={data?.text} />
                 ))}
-                <MoreIcon onClick={getNextMessages} ref={messagesTop} />
+                {messagesCounter > messages.length && (
+                    <MoreIcon onClick={getNextMessages} ref={messagesTop} />
+                )}
             </Messages>
             {username ? (
                 <InputContainer>
