@@ -9,7 +9,7 @@ import ReactLoading from "react-loading";
 function Player() {
     const history = useHistory();
     const [data, setData] = useState([]);
-    const [timeReady, setTimeReady] = useState(false);
+    const [loaded, setLoaded] = useState(false);
     const { eventId } = useParams();
 
     useEffect(() => {
@@ -18,37 +18,39 @@ function Player() {
             .get()
             .then((doc) => {
                 setData(doc.data());
-                setTimeReady(true);
+                setLoaded(true);
             });
     }, [eventId]);
 
     return !data ? (
         history.goBack()
     ) : (
-        <PlayerContainer>
-            <Screen>
-                <ReactPlayer
-                    url="https://static.videezy.com/system/resources/previews/000/005/038/original/Alive_4K_Motion_Background_Loop.mp4"
-                    loop
-                    playing={true}
-                    muted={true}
-                    width="100%"
-                    height="100%"
-                />
-                {timeReady ? (
-                    <TimerContainer>
-                        <Typography>Event starts at</Typography>
-                        <CountdownTimer
-                            date={data?.timestamp?.seconds * 1000}
+        <PlayerContainer style={!loaded ? { flex: "1" } : {}}>
+            {loaded ? (
+                <>
+                    <Screen>
+                        <ReactPlayer
+                            url={data?.url}
+                            loop
+                            playing={true}
+                            muted={true}
+                            width="100%"
+                            height="100%"
                         />
-                    </TimerContainer>
-                ) : (
-                    <LoadingContainer>
-                        <ReactLoading type="bubbles" width={100} />
-                    </LoadingContainer>
-                )}
-            </Screen>
-            <Title>{data.name}</Title>
+                        <TimerContainer>
+                            <Typography>Event starts at</Typography>
+                            <CountdownTimer
+                                date={data?.timestamp?.seconds * 1000}
+                            />
+                        </TimerContainer>
+                    </Screen>
+                    <Title>{data?.name}</Title>
+                </>
+            ) : (
+                <LoadingContainer>
+                    <LoadingIcon type="bubbles" width={100} />
+                </LoadingContainer>
+            )}
         </PlayerContainer>
     );
 }
@@ -68,6 +70,7 @@ const PlayerContainer = styled.div`
 const Screen = styled.div`
     position: relative;
 `;
+
 const TimerContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -79,6 +82,12 @@ const TimerContainer = styled.div`
 `;
 
 const LoadingContainer = styled.div`
+    height: 100%;
+    width: 100%;
+    position: relative;
+`;
+
+const LoadingIcon = styled(ReactLoading)`
     position: absolute;
     top: 50%;
     left: 50%;
