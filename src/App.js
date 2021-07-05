@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectLoading } from "./redux/loadingSlice";
@@ -10,6 +9,8 @@ import Sponsors from "./components/Sponsors/Sponsors";
 import Streams from "./components/Streams/Streams";
 import Live from "./components/Live/Live";
 import Loading from "./components/Loading/Loading";
+
+import { AppContainer } from "./Styles";
 
 function App() {
     const [loading, setLoading] = useState(true);
@@ -46,9 +47,3 @@ function App() {
 }
 
 export default App;
-
-const AppContainer = styled.div`
-    background-color: black;
-    max-width: 1400px;
-    margin: 0 auto;
-`;
