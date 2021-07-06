@@ -34,7 +34,17 @@ function App() {
                 </Route>
                 <Route path="/">
                     {loading && <Loading />}
-                    <AppContainer style={loading ? { display: "none" } : {}}>
+                    <AppContainer
+                        style={
+                            loading
+                                ? {
+                                      visibility: "hidden",
+                                      height: "0px",
+                                      overflow: "hidden",
+                                  }
+                                : {}
+                        }
+                    >
                         <Header />
                         <Slideshow />
                         <Streams />
