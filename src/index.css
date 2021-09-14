@@ -1,35 +1,32 @@
 * {
-    margin: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
 
 .swiper-pagination {
-    margin-bottom: 3.5%;
+  margin-bottom: 3.5%;
 }
 
 .swiper-button-prev {
-    margin-left: 4%;
+  margin-left: 4%;
 }
 
 .swiper-button-next {
-    margin-right: 4%;
+  margin-right: 4%;
 }
 
 :root {
-    --swiper-theme-color: #fff !important;
-    background-color: black;
+  --swiper-theme-color: #fff !important;
+  background-color: black;
 }
 
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-        "Helvetica Neue", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-        monospace;
+  margin: 0 auto;
+  font-family: "Open Sans", sans-serif;
+  overflow-x: hidden;
+  max-width: 1400px;
+  background-color: black;
 }

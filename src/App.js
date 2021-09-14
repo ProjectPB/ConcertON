@@ -3,57 +3,48 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectLoading } from "./redux/loadingSlice";
 
-import Header from "./components/Header/Header";
-import Slideshow from "./components/Slideshow/Slideshow";
-import Sponsors from "./components/Sponsors/Sponsors";
-import Streams from "./components/Streams/Streams";
-import Live from "./components/Live/Live";
-import Loading from "./components/Loading/Loading";
+import Loading from "./components/Loading";
 
-import { AppContainer } from "./Styles";
+import Homepage from "./pages/Homepage";
+import Streampage from "./pages/Streampage";
 
 function App() {
-    const [loading, setLoading] = useState(true);
-    const loadingStates = useSelector(selectLoading);
+  const [loading, setLoading] = useState(true);
+  const loadingStates = useSelector(selectLoading);
 
-    useEffect(() => {
-        if (
-            loadingStates.slideshowLoaded &&
-            loadingStates.sponsorsLoaded &&
-            loadingStates.streamsLoaded
-        ) {
-            setLoading(false);
-        }
-    }, [loadingStates, loading]);
+  useEffect(() => {
+    if (
+      loadingStates.slideshowLoaded &&
+      loadingStates.sponsorsLoaded &&
+      loadingStates.streamsLoaded
+    ) {
+      setLoading(false);
+    }
+  }, [loadingStates, loading]);
 
-    return (
-        <Router>
-            <Switch>
-                <Route path="/live/:eventId">
-                    <Live />
-                </Route>
-                <Route path="/">
-                    {loading && <Loading />}
-                    <AppContainer
-                        style={
-                            loading
-                                ? {
-                                      visibility: "hidden",
-                                      height: "0px",
-                                      overflow: "hidden",
-                                  }
-                                : {}
-                        }
-                    >
-                        <Header />
-                        <Slideshow />
-                        <Streams />
-                        <Sponsors />
-                    </AppContainer>
-                </Route>
-            </Switch>
-        </Router>
-    );
+  return (
+    <Router>
+      <Switch>
+        <Route path="/live/:eventId">
+          <Streampage />
+        </Route>
+        <Route path="/">
+          {loading && <Loading />}
+          <Homepage
+            style={
+              loading
+                ? {
+                    visibility: "hidden",
+                    height: "0px",
+                    overflow: "hidden",
+                  }
+                : {}
+            }
+          />
+        </Route>
+      </Switch>
+    </Router>
+  );
 }
 
 export default App;
