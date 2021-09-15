@@ -1,56 +1,40 @@
 import styled from "styled-components";
 
 export const HeaderContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    z-index: 1;
-    width: 100%;
-    height: fit-content;
-    padding: 10px 10px 0 10px;
-    height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1;
+  width: 100%;
+  height: 60px;
+  padding: 0 20px;
 `;
 
-export const Logo = styled.div`
-    color: white;
-    font-size: 32px;
-    padding: 5px;
-    cursor: pointer;
-    margin-left: 10px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    @media (max-width: 768px) {
-        font-size: 24px;
-    }
-`;
+export const LeftContainer = styled.div``;
 
 export const NavContainer = styled.div`
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
+  display: flex;
+  justify-content: space-between;
+  margin-right: -20px;
 `;
 
 export const Typography = styled.p`
-    color: white;
-    font-size: 24px;
-    padding: 5px;
-    height: 32px;
-    cursor: pointer;
-    text-align: center;
-    margin-right: 30px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    @media (max-width: 768px) {
-        font-size: 16px;
-        margin-right: 5px;
-        height: 24px;
-    }
-    :hover {
-        color: lightgray;
-        transition: 200ms;
-    }
+  display: block;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin-right: 20px;
+
+  :hover {
+    color: #8b0000;
+    transition: 400ms;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
 `;

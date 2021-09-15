@@ -30,17 +30,7 @@ function App() {
         </Route>
         <Route path="/">
           {loading && <Loading />}
-          <Homepage
-            style={
-              loading
-                ? {
-                    visibility: "hidden",
-                    height: "0px",
-                    overflow: "hidden",
-                  }
-                : {}
-            }
-          />
+          <Homepage loading={loading} />
         </Route>
       </Switch>
     </Router>

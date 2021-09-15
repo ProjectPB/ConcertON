@@ -40,7 +40,7 @@ function Slideshow() {
 
   useEffect(() => {
     db.collection("events")
-      .where("important", "==", true)
+      .limit(3)
       .get()
       .then((querySnapshot) => {
         setEvents(

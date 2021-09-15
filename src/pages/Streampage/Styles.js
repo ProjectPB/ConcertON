@@ -4,6 +4,8 @@ export const StreampageContainer = styled.div`
   height: 100vh;
 `;
 
+export const LogoContainer = styled.div``;
+
 export const MainContainer = styled.div`
   display: flex;
   background-color: black;

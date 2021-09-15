@@ -2,19 +2,29 @@ import styled from "styled-components";
 
 export const LogoContainer = styled.div`
   width: 100%;
+  display: flex;
+  justify-content: center;
 `;
 
-export const LogoImg = styled.h1`
+export const LogoText = styled.h1`
   display: block;
-  text-align: center;
   font-size: 24px;
   color: white;
   cursor: pointer;
   width: fit-content;
-  padding: 10px;
-  margin: 0 auto;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+`;
+
+export const LogoSpan = styled.span`
+  background-color: #8b0000;
+  border-radius: 5px;
+  padding: 0 2px;
+  margin: 2px;
 `;

@@ -1,21 +1,31 @@
 import React from "react";
-import { HeaderContainer, Logo, NavContainer, Typography } from "./Styles";
+import {
+  HeaderContainer,
+  NavContainer,
+  Typography,
+  LeftContainer,
+} from "./Styles";
 import { Link } from "react-scroll";
+import Logo from "../Logo";
 
-function Header() {
-    return (
-        <HeaderContainer>
-            <Logo>EventStream</Logo>
-            <NavContainer>
-                <Link to="watch" smooth duration={500}>
-                    <Typography>Watch</Typography>
-                </Link>
-                <Link to="sponsors" smooth duration={500}>
-                    <Typography>Sponsors</Typography>
-                </Link>
-            </NavContainer>
-        </HeaderContainer>
-    );
-}
+const Header = ({ options }) => {
+  return (
+    <HeaderContainer>
+      <LeftContainer>
+        <Logo />
+      </LeftContainer>
+      {options && (
+        <NavContainer>
+          <Link to="watch" smooth duration={500}>
+            <Typography>Watch</Typography>
+          </Link>
+          <Link to="sponsors" smooth duration={500}>
+            <Typography>Sponsors</Typography>
+          </Link>
+        </NavContainer>
+      )}
+    </HeaderContainer>
+  );
+};
 
 export default Header;

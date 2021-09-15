@@ -37,7 +37,11 @@ function Player() {
         <>
           <Screen>
             <ReactPlayer
-              url={data?.url}
+              url={
+                data?.url
+                  ? data?.url
+                  : "https://cdn.videvo.net/videvo_files/video/free/2013-09/large_watermarked/DiscoLights2Videvo_preview.mp4"
+              }
               loop
               playing={true}
               muted={true}

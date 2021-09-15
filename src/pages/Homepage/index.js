@@ -5,10 +5,20 @@ import Streams from "./../../components/Streams";
 import Sponsors from "./../../components/Sponsors";
 import { HomepageContainer } from "./Styles";
 
-const Homepage = () => {
+const Homepage = ({ loading }) => {
   return (
-    <HomepageContainer>
-      <Header />
+    <HomepageContainer
+      style={
+        loading
+          ? {
+              visibility: "hidden",
+              height: "0px",
+              overflow: "hidden",
+            }
+          : {}
+      }
+    >
+      <Header options />
       <Slideshow />
       <Streams />
       <Sponsors />

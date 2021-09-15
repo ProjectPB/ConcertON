@@ -1,13 +1,15 @@
 import React from "react";
 import { useHistory } from "react-router";
-import { LogoContainer, LogoImg } from "./Styles.js";
+import { LogoContainer, LogoText, LogoSpan } from "./Styles.js";
 
 const Logo = () => {
   const history = useHistory();
 
   return (
     <LogoContainer>
-      <LogoImg onClick={() => history.push("/")}>EventStream</LogoImg>
+      <LogoText onClick={() => history.push("/")}>
+        Concert<LogoSpan>ON</LogoSpan>
+      </LogoText>
     </LogoContainer>
   );
 };
