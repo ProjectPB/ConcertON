@@ -1,26 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectLoading } from "./redux/loadingSlice";
-
 import Loading from "./components/Loading";
-
 import Homepage from "./pages/Homepage";
 import Streampage from "./pages/Streampage";
 
-function App() {
+const mapState = ({ loading }) => ({
+  slideshowLoaded: loading.slideshowLoaded,
+  streamsLoaded: loading.streamsLoaded,
+  sponsorsLoaded: loading.sponsorsLoaded,
+});
+
+const App = () => {
   const [loading, setLoading] = useState(true);
-  const loadingStates = useSelector(selectLoading);
+  const { slideshowLoaded, streamsLoaded, sponsorsLoaded } =
+    useSelector(mapState);
 
   useEffect(() => {
-    if (
-      loadingStates.slideshowLoaded &&
-      loadingStates.sponsorsLoaded &&
-      loadingStates.streamsLoaded
-    ) {
+    if (slideshowLoaded && sponsorsLoaded && streamsLoaded) {
       setLoading(false);
     }
-  }, [loadingStates, loading]);
+    return () => {
+      setLoading(true);
+    };
+  }, [slideshowLoaded, sponsorsLoaded, streamsLoaded, loading]);
 
   return (
     <Router>
@@ -35,6 +38,6 @@ function App() {
       </Switch>
     </Router>
   );
-}
+};
 
 export default App;

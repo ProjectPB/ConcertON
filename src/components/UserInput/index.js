@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setUsername } from "../../redux/userSlice";
+import { setUsername } from "../../redux/User/user.actions";
 import { UserInputContainer, Typography, Input, Button } from "./Styles";
 
 function UserInput() {

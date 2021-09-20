@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { loadStreams } from "../../redux/loadingSlice";
+import { loadStreams } from "./../../redux/Loading/loading.actions";
 import Stream from "../Stream";
 import { db } from "../../firebase/utils";
 

@@ -23,7 +23,7 @@ import {
 } from "./Styles";
 
 import { db } from "../../firebase/utils";
-import { loadSlideshow } from "../../redux/loadingSlice";
+import { loadSlideshow } from "./../../redux/Loading/loading.actions";
 
 SwiperCore.use([EffectFade, Autoplay, Pagination, Navigation]);
 

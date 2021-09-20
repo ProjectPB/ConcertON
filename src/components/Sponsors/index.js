@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { db } from "../../firebase/utils";
-import { loadSponsors } from "../../redux/loadingSlice";
+import { loadSponsors } from "./../../redux/Loading/loading.actions";
 import {
   SponsorsContainer,
   Typography,

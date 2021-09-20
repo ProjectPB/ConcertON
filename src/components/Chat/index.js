@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import { useSelector } from "react-redux";
-import { selectUser } from "../../redux/userSlice";
 import firebase from "firebase/app";
 import { db } from "../../firebase/utils";
 import SendIcon from "@material-ui/icons/Send";
@@ -19,8 +18,12 @@ import {
   TextLength,
 } from "./Styles";
 
-function Chat() {
-  const username = useSelector(selectUser);
+const mapState = ({ user }) => ({
+  username: user.currentUser,
+});
+
+const Chat = () => {
+  const { username } = useSelector(mapState);
   const { eventId } = useParams();
   const messagesBottom = useRef();
   const messagesTop = useRef();
@@ -157,6 +160,6 @@ function Chat() {
       )}
     </ChatContainer>
   );
-}
+};
 
 export default Chat;
