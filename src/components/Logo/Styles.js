@@ -20,6 +20,11 @@ export const LogoText = styled.h1`
   @media (max-width: 768px) {
     font-size: 16px;
   }
+
+  :hover {
+    opacity: 0.7;
+    transition: 0.2s;
+  }
 `;
 
 export const LogoSpan = styled.span`

@@ -7,7 +7,11 @@ export const HeaderContainer = styled.div`
   z-index: 1;
   width: 100%;
   height: 60px;
-  padding: 0 20px;
+  padding: 0 40px;
+
+  @media (max-width: 768px) {
+    padding: 0 20px;
+  }
 `;
 
 export const LeftContainer = styled.div``;
