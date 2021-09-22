@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import ReactPlayer from "react-player";
 import { db } from "../../firebase/utils";
 import CountdownTimer from "../CountdownTimer";
 import {
   PlayerContainer,
+  ScreenContainer,
   Screen,
   TimerContainer,
   LoadingContainer,
@@ -13,7 +13,7 @@ import {
   Title,
 } from "./Styles";
 
-function Player() {
+const Player = () => {
   const history = useHistory();
   const [data, setData] = useState([]);
   const [loaded, setLoaded] = useState(false);
@@ -35,8 +35,8 @@ function Player() {
     <PlayerContainer style={!loaded ? { flex: "1" } : {}}>
       {loaded ? (
         <>
-          <Screen>
-            <ReactPlayer
+          <ScreenContainer>
+            <Screen
               url={
                 data?.url
                   ? data?.url
@@ -45,14 +45,14 @@ function Player() {
               loop
               playing={true}
               muted={true}
-              width="100%"
               height="100%"
+              width="100%"
             />
             <TimerContainer>
               <Typography>Event starts at</Typography>
               <CountdownTimer date={data?.timestamp?.seconds * 1000} />
             </TimerContainer>
-          </Screen>
+          </ScreenContainer>
           <Title>{data?.name}</Title>
         </>
       ) : (
@@ -62,6 +62,6 @@ function Player() {
       )}
     </PlayerContainer>
   );
-}
+};
 
 export default Player;

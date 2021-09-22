@@ -10,7 +10,9 @@ import Logo from "../Logo";
 
 const Header = ({ options }) => {
   return (
-    <HeaderContainer>
+    <HeaderContainer
+      style={!options ? { justifyContent: "center", height: "50px" } : {}}
+    >
       <LeftContainer>
         <Logo />
       </LeftContainer>
