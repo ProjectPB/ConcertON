@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, {
@@ -21,36 +21,30 @@ import {
   Title,
   Date,
 } from "./Styles";
-
-import { db } from "../../firebase/utils";
 import { loadSlideshow } from "./../../redux/Loading/loading.actions";
+import { setSlideshowStreams } from "../../redux/Streams/streams.actions";
+import { fetchSlideshowStreams } from "../../redux/Streams/streams.helpers";
 
 SwiperCore.use([EffectFade, Autoplay, Pagination, Navigation]);
 
-function Slideshow() {
-  const [events, setEvents] = useState([]);
-  const [loaded, setLoaded] = useState(false);
+const mapState = ({ streams, loading }) => ({
+  slides: streams.slideshowStreams,
+  loaded: loading.slideshowLoaded,
+});
+
+const Slideshow = () => {
+  const { slides, loaded } = useSelector(mapState);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (loaded) {
+    async function getSlideshowData() {
+      const slideshowData = await fetchSlideshowStreams();
+      dispatch(setSlideshowStreams(slideshowData));
       dispatch(loadSlideshow(true));
     }
-  }, [loaded, dispatch]);
 
-  useEffect(() => {
-    db.collection("events")
-      .limit(3)
-      .get()
-      .then((querySnapshot) => {
-        setEvents(
-          querySnapshot.docs.map((doc) => ({
-            id: doc.id,
-            data: doc.data(),
-          }))
-        );
-      });
-  }, []);
+    slides.length === 0 && getSlideshowData();
+  }, [dispatch, slides.length]);
 
   return (
     <Swiper
@@ -67,10 +61,10 @@ function Slideshow() {
       navigation={true}
       style={loaded ? {} : { visibility: "hidden" }}
     >
-      {events.map(({ id, data }) => (
+      {slides?.map(({ id, data }) => (
         <SwiperSlide key={id}>
           <ImageContainer>
-            <Image src={data.image} onLoad={() => setLoaded(true)} />
+            <Image src={data.image} />
           </ImageContainer>
           <CaptionContainer>
             <Caption>
@@ -82,6 +76,6 @@ function Slideshow() {
       ))}
     </Swiper>
   );
-}
+};
 
 export default Slideshow;

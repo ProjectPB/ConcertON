@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 
 import {
@@ -10,25 +10,16 @@ import {
   ImgContainer,
 } from "./Styles";
 
-function Stream({ id, name, timestamp, image, loadStream }) {
+const Stream = ({ id, name, timestamp, image }) => {
   const history = useHistory();
-  const [imgLoaded, setImgLoaded] = useState(false);
-
-  useEffect(() => {
-    if (imgLoaded) {
-      loadStream();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [imgLoaded]);
 
   return (
-    <StreamContainer style={imgLoaded ? {} : { visibility: "hidden" }}>
+    <StreamContainer>
       <ImgContainer>
         <Img
           src={image}
           alt={name}
           onClick={() => history.push(`/live/${id}`)}
-          onLoad={() => setImgLoaded(true)}
         />
       </ImgContainer>
       <DataContainer>
@@ -37,5 +28,5 @@ function Stream({ id, name, timestamp, image, loadStream }) {
       </DataContainer>
     </StreamContainer>
   );
-}
+};
 export default Stream;

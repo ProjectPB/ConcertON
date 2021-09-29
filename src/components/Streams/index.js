@@ -1,53 +1,42 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { loadStreams } from "./../../redux/Loading/loading.actions";
 import Stream from "../Stream";
-import { db } from "../../firebase/utils";
-
 import { StreamsContainer } from "./Styles";
+import { setStreams } from "../../redux/Streams/streams.actions";
+import { fetchStreams } from "../../redux/Streams/streams.helpers";
 
-function Streams() {
+const mapState = ({ streams }) => ({
+  streams: streams.streams,
+});
+
+const Streams = () => {
   const dispatch = useDispatch();
-  const [events, setEvents] = useState([]);
-  const [streamsLoaded, setStreamsLoaded] = useState(0);
+  const { streams } = useSelector(mapState);
 
   useEffect(() => {
-    db.collection("events")
-      .get()
-      .then((querySnapshot) => {
-        setEvents(
-          querySnapshot.docs.map((doc) => ({
-            id: doc.id,
-            data: doc.data(),
-          }))
-        );
-      });
-  }, []);
-
-  useEffect(() => {
-    if (streamsLoaded === events.length) {
+    async function getStreams() {
+      const streams = await fetchStreams();
+      dispatch(setStreams(streams));
       dispatch(loadStreams(true));
     }
-  }, [streamsLoaded, dispatch, events.length]);
 
-  const loadSingleStream = () => {
-    setStreamsLoaded((counter) => (counter += 1));
-  };
+    streams.length === 0 && getStreams();
+  }, [dispatch, streams.length]);
 
   return (
     <StreamsContainer id="watch">
-      {events.map(({ id, data }) => (
+      {streams?.map(({ id, data }) => (
         <Stream
-          loadStream={loadSingleStream}
           key={id}
           id={id}
-          name={data.name}
-          timestamp={data.timestamp.toDate().toDateString()}
-          image={data.image}
+          name={data?.name}
+          timestamp={data?.timestamp?.toDate()?.toDateString()}
+          image={data?.image}
         />
       ))}
     </StreamsContainer>
   );
-}
+};
 
 export default Streams;

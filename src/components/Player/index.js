@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
-import { db } from "../../firebase/utils";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import CountdownTimer from "../CountdownTimer";
+import { fetchStreamData } from "./../../redux/Streams/streams.helpers";
+import { setStreamData } from "./../../redux/Streams/streams.actions";
 import {
   PlayerContainer,
   ScreenContainer,
@@ -13,26 +15,28 @@ import {
   Title,
 } from "./Styles";
 
+const mapState = ({ streams }) => ({
+  data: streams.streamData,
+});
+
 const Player = () => {
-  const history = useHistory();
-  const [data, setData] = useState([]);
+  const dispatch = useDispatch();
+  const { data } = useSelector(mapState);
   const [loaded, setLoaded] = useState(false);
   const { eventId } = useParams();
 
   useEffect(() => {
-    db.collection("events")
-      .doc(eventId)
-      .get()
-      .then((doc) => {
-        setData(doc.data());
-        setLoaded(true);
-      });
-  }, [eventId]);
+    async function getData() {
+      const streamData = await fetchStreamData(eventId);
+      dispatch(setStreamData(streamData));
+      setLoaded(true);
+    }
 
-  return !data ? (
-    history.goBack()
-  ) : (
-    <PlayerContainer style={!loaded ? { flex: "1" } : {}}>
+    getData();
+  }, [dispatch, eventId]);
+
+  return (
+    <PlayerContainer>
       {loaded ? (
         <>
           <ScreenContainer>
