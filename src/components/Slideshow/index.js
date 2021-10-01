@@ -21,30 +21,21 @@ import {
   Title,
   Date,
 } from "./Styles";
-import { loadSlideshow } from "./../../redux/Loading/loading.actions";
-import { setSlideshowStreams } from "../../redux/Streams/streams.actions";
-import { fetchSlideshowStreams } from "../../redux/Streams/streams.helpers";
+import { fetchSlideshowStreamsStart } from "../../redux/Streams/streams.actions";
 
 SwiperCore.use([EffectFade, Autoplay, Pagination, Navigation]);
 
-const mapState = ({ streams, loading }) => ({
+const mapState = ({ streams }) => ({
   slides: streams.slideshowStreams,
-  loaded: loading.slideshowLoaded,
 });
 
 const Slideshow = () => {
-  const { slides, loaded } = useSelector(mapState);
+  const { slides } = useSelector(mapState);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    async function getSlideshowData() {
-      const slideshowData = await fetchSlideshowStreams();
-      dispatch(setSlideshowStreams(slideshowData));
-      dispatch(loadSlideshow(true));
-    }
-
-    slides.length === 0 && getSlideshowData();
-  }, [dispatch, slides.length]);
+    dispatch(fetchSlideshowStreamsStart());
+  }, [dispatch]);
 
   return (
     <Swiper
@@ -59,7 +50,6 @@ const Slideshow = () => {
         clickable: true,
       }}
       navigation={true}
-      style={loaded ? {} : { visibility: "hidden" }}
     >
       {slides?.map(({ id, data }) => (
         <SwiperSlide key={id}>

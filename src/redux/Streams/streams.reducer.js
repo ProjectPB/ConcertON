@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   streams: [],
   slideshowStreams: [],
   streamData: {},
+  sponsors: [],
 };
 
 const streamsReducer = (state = INITIAL_STATE, action) => {
@@ -22,6 +23,11 @@ const streamsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         streamData: action.payload,
+      };
+    case streamsTypes.SET_SPONSORS:
+      return {
+        ...state,
+        sponsors: action.payload,
       };
     default:
       return state;

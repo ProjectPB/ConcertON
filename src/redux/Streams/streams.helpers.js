@@ -1,6 +1,6 @@
 import { db } from "./../../firebase/utils";
 
-export const fetchSlideshowStreams = () => {
+export const handleFetchSlideshowStreams = () => {
   return new Promise((resolve, reject) => {
     const data = [];
 
@@ -14,14 +14,15 @@ export const fetchSlideshowStreams = () => {
             data: doc.data(),
           })
         );
+        resolve(data);
+      })
+      .catch((err) => {
+        reject(err);
       });
-    resolve(data).catch((err) => {
-      reject(err);
-    });
   });
 };
 
-export const fetchStreams = () => {
+export const handleFetchStreams = () => {
   return new Promise((resolve, reject) => {
     const data = [];
 
@@ -34,21 +35,42 @@ export const fetchStreams = () => {
             data: doc.data(),
           })
         );
+        resolve(data);
+      })
+      .catch((err) => {
+        reject(err);
       });
-
-    resolve(data).catch((err) => {
-      reject(err);
-    });
   });
 };
 
-export const fetchStreamData = (streamId) => {
+export const handleFetchStreamData = (streamId) => {
   return new Promise((resolve, reject) => {
     db.collection("events")
       .doc(streamId)
       .get()
       .then((doc) => {
         resolve(doc.data());
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+export const handleFetchSponsors = () => {
+  return new Promise((resolve, reject) => {
+    const data = [];
+
+    db.collection("sponsors")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.docs.map((doc) =>
+          data.push({
+            id: doc.id,
+            data: doc.data(),
+          })
+        );
+        resolve(data);
       })
       .catch((err) => {
         reject(err);

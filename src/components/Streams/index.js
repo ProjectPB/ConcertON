@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadStreams } from "./../../redux/Loading/loading.actions";
 import Stream from "../Stream";
 import { StreamsContainer } from "./Styles";
-import { setStreams } from "../../redux/Streams/streams.actions";
-import { fetchStreams } from "../../redux/Streams/streams.helpers";
+import { fetchStreamsStart } from "../../redux/Streams/streams.actions";
 
 const mapState = ({ streams }) => ({
   streams: streams.streams,
@@ -15,14 +13,8 @@ const Streams = () => {
   const { streams } = useSelector(mapState);
 
   useEffect(() => {
-    async function getStreams() {
-      const streams = await fetchStreams();
-      dispatch(setStreams(streams));
-      dispatch(loadStreams(true));
-    }
-
-    streams.length === 0 && getStreams();
-  }, [dispatch, streams.length]);
+    dispatch(fetchStreamsStart());
+  }, [dispatch]);
 
   return (
     <StreamsContainer id="watch">
