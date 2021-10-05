@@ -1,14 +1,28 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link as ScrollLink } from "react-scroll";
+import Logo from "../Logo";
+import { Link } from "react-router-dom";
+import { signOutUserStart } from "./../../redux/User/user.actions";
 import {
   HeaderContainer,
   NavContainer,
   Typography,
   LeftContainer,
 } from "./Styles";
-import { Link } from "react-scroll";
-import Logo from "../Logo";
+
+const mapState = ({ user }) => ({
+  currentUser: user.currentUser,
+});
 
 const Header = ({ options }) => {
+  const { currentUser } = useSelector(mapState);
+  const dispatch = useDispatch();
+
+  const signOut = () => {
+    dispatch(signOutUserStart());
+  };
+
   return (
     <HeaderContainer
       style={!options ? { justifyContent: "center", height: "50px" } : {}}
@@ -18,12 +32,18 @@ const Header = ({ options }) => {
       </LeftContainer>
       {options && (
         <NavContainer>
-          <Link to="watch" smooth duration={500}>
+          <ScrollLink to="watch" smooth duration={500}>
             <Typography>Watch</Typography>
-          </Link>
-          <Link to="sponsors" smooth duration={500}>
+          </ScrollLink>
+          <ScrollLink to="sponsors" smooth duration={500}>
             <Typography>Sponsors</Typography>
-          </Link>
+          </ScrollLink>
+          {!currentUser && (
+            <Link to="/auth">
+              <Typography>Sign In</Typography>
+            </Link>
+          )}
+          {currentUser && <Typography onClick={signOut}>Sign out</Typography>}
         </NavContainer>
       )}
     </HeaderContainer>

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import Loading from "./components/Loading";
 import Homepage from "./pages/Homepage";
 import Streampage from "./pages/Streampage";
+import Authpage from "./pages/Authpage";
 
 const mapState = ({ loading }) => ({
   slideshowLoaded: loading.slideshowLoaded,
@@ -31,7 +32,10 @@ const App = () => {
         <Route path="/live/:eventId">
           <Streampage />
         </Route>
-        <Route path="/">
+        <Route path="/auth">
+          <Authpage />
+        </Route>
+        <Route path="/" exact>
           {loading && <Loading />}
           <Homepage loading={loading} />
         </Route>

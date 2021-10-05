@@ -87,3 +87,8 @@ export const TextLength = styled.p`
   font-size: 12px;
   font-weight: 400;
 `;
+
+export const Typography = styled.p`
+  font-size: 12px;
+  font-weight: 400;
+`;

@@ -20,6 +20,10 @@ export const NavContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-right: -20px;
+
+  a {
+    text-decoration: none;
+  }
 `;
 
 export const Typography = styled.p`

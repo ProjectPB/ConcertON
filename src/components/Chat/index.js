@@ -5,7 +5,6 @@ import firebase from "firebase/app";
 import { db } from "../../firebase/utils";
 import SendIcon from "@material-ui/icons/Send";
 import Message from "../Message";
-import UserInput from "../UserInput";
 import {
   ChatContainer,
   Header,
@@ -16,14 +15,15 @@ import {
   Input,
   InputBottomContainer,
   TextLength,
+  Typography,
 } from "./Styles";
 
 const mapState = ({ user }) => ({
-  username: user.currentUser,
+  currentUser: user.currentUser,
 });
 
 const Chat = () => {
-  const { username } = useSelector(mapState);
+  const { currentUser } = useSelector(mapState);
   const { eventId } = useParams();
   const messagesBottom = useRef();
   const messagesTop = useRef();
@@ -100,7 +100,7 @@ const Chat = () => {
     ) {
       e.preventDefault();
       db.collection("events").doc(eventId).collection("messages").add({
-        author: username,
+        author: currentUser.displayName,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         text: input,
       });
@@ -112,7 +112,7 @@ const Chat = () => {
     if (input && input.length <= 200) {
       e.preventDefault();
       db.collection("events").doc(eventId).collection("messages").add({
-        author: username,
+        author: currentUser.displayName,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         text: input,
       });
@@ -132,7 +132,7 @@ const Chat = () => {
           <MoreIcon onClick={getNextMessages} ref={messagesTop} />
         )}
       </Messages>
-      {username ? (
+      {currentUser ? (
         <InputContainer>
           <Input
             onKeyDown={sendMessage}
@@ -156,7 +156,9 @@ const Chat = () => {
           </InputBottomContainer>
         </InputContainer>
       ) : (
-        <UserInput />
+        <InputContainer>
+          <Typography>Please Sign In to comment</Typography>
+        </InputContainer>
       )}
     </ChatContainer>
   );
