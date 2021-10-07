@@ -13,6 +13,8 @@ import {
   FormContainer,
   ErrorsContainer,
   Error,
+  Typography,
+  FormBody,
 } from "../LoginForm/Styles";
 
 const mapState = ({ user }) => ({
@@ -56,47 +58,51 @@ const RegisterForm = () => {
   return (
     <FormContainer>
       <Form onSubmit={handleSubmit}>
-        <FormInput
-          name="displayName"
-          type="text"
-          label="Username"
-          value={displayName}
-          handleChange={(e) => setDisplayName(e.target.value)}
-        />
-        <FormInput
-          name="email"
-          type="email"
-          label="Email"
-          value={email}
-          handleChange={(e) => setEmail(e.target.value)}
-        />
-        <FormInput
-          name="password"
-          type="password"
-          label="Password"
-          value={password}
-          handleChange={(e) => setPassword(e.target.value)}
-        />
-        <FormInput
-          name="confirmPassword"
-          type="password"
-          label="Confirm Password"
-          value={confirmPassword}
-          handleChange={(e) => setConfirmPassword(e.target.value)}
-        />
-        {errors.length > 0 && (
-          <ErrorsContainer>
-            {errors.map((err, index) => {
-              return (
-                <Error key={index}>
-                  <WarningOutlined />
-                  {err}
-                </Error>
-              );
-            })}
-          </ErrorsContainer>
-        )}
-        <FormButton type="submit">Sign Up</FormButton>
+        <FormBody>
+          <FormInput
+            name="displayName"
+            type="text"
+            label="Username"
+            value={displayName}
+            handleChange={(e) => setDisplayName(e.target.value)}
+          />
+          <FormInput
+            name="email"
+            type="email"
+            label="Email"
+            value={email}
+            handleChange={(e) => setEmail(e.target.value)}
+          />
+          <FormInput
+            name="password"
+            type="password"
+            label="Password"
+            value={password}
+            handleChange={(e) => setPassword(e.target.value)}
+          />
+          <FormInput
+            name="confirmPassword"
+            type="password"
+            label="Confirm Password"
+            value={confirmPassword}
+            handleChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          {errors.length > 0 && (
+            <ErrorsContainer>
+              {errors.map((err, index) => {
+                return (
+                  <Error key={index}>
+                    <WarningOutlined />
+                    <Typography>{err}</Typography>
+                  </Error>
+                );
+              })}
+            </ErrorsContainer>
+          )}
+        </FormBody>
+        <FormButton type="submit" primary>
+          Sign Up
+        </FormButton>
       </Form>
     </FormContainer>
   );

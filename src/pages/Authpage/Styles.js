@@ -13,20 +13,29 @@ export const MainContainer = styled.div`
 `;
 
 export const Main = styled.div`
-  height: 75%;
-  min-width: 400px;
   display: flex;
   flex-direction: column;
-  background-color: white;
-  border: 2px solid #8b0000;
-  border-radius: 10px;
+  height: fit-content;
+  align-items: center;
+  min-height: 70%;
+  width: 40%;
+  min-width: 600px;
   padding: 20px;
+  border: 1px solid white;
+  border-radius: 10px;
+  background-color: #121212;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    min-width: auto;
+  }
 `;
 
 export const ButtonsContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 10px;
 `;
 
 export const ButtonContainer = styled.div`
@@ -38,4 +47,6 @@ export const Typography = styled.h1`
   font-size: 30px;
   font-weight: 600;
   text-transform: uppercase;
+  color: white;
+  margin-bottom: 15px;
 `;
