@@ -7,6 +7,10 @@ export const InputContainer = styled.div`
 
 export const Label = styled.label`
   color: lightgray;
+  font-size: 16px;
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 `;
 
 export const Input = styled.input`
@@ -18,4 +22,8 @@ export const Input = styled.input`
   margin-top: 5px;
   background-color: transparent;
   color: white;
+
+  @media (max-width: 768px) {
+    padding: 5px;
+  }
 `;

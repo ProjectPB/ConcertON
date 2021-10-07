@@ -20,6 +20,11 @@ export const Error = styled.li`
   display: flex;
   align-items: center;
   margin: 5px 0;
+  font-size: 16px;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 `;
 
 export const Typography = styled.p`

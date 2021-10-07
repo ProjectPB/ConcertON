@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Button = styled.button`
   width: 100%;
   min-width: 100px;
-  padding: 12px 26px;
+  padding: 12px 24px;
   border: ${(props) =>
     props.primary ? "1px solid #8b0000" : "1px solid white"};
   margin: -1px;
@@ -17,5 +17,10 @@ export const Button = styled.button`
 
   &:hover {
     opacity: 0.7;
+  }
+
+  @media (max-width: 768px) {
+    padding: 8px 16px;
+    font-size: 10px;
   }
 `;

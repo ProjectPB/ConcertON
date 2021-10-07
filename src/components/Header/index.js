@@ -9,6 +9,7 @@ import {
   NavContainer,
   Typography,
   LeftContainer,
+  BorderedTypography,
 } from "./Styles";
 
 const mapState = ({ user }) => ({
@@ -40,10 +41,12 @@ const Header = ({ options }) => {
           </ScrollLink>
           {!currentUser && (
             <Link to="/auth">
-              <Typography>Sign In</Typography>
+              <BorderedTypography>Sign In</BorderedTypography>
             </Link>
           )}
-          {currentUser && <Typography onClick={signOut}>Sign out</Typography>}
+          {currentUser && (
+            <BorderedTypography onClick={signOut}>Sign out</BorderedTypography>
+          )}
         </NavContainer>
       )}
     </HeaderContainer>

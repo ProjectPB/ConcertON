@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import UnfoldMoreIcon from "@material-ui/icons/UnfoldMore";
+import SendIcon from "@material-ui/icons/Send";
 
 export const ChatContainer = styled.div`
   display: flex;
@@ -48,7 +49,7 @@ export const MoreIcon = styled(UnfoldMoreIcon)`
   padding: 5px;
   margin: 0 auto;
   margin-top: 5px;
-  color: darkblue;
+  color: #8b0000;
   background-color: whitesmoke;
   cursor: pointer;
   border-radius: 100%;
@@ -82,6 +83,11 @@ export const InputBottomContainer = styled.div`
   justify-content: flex-end;
 `;
 
+export const SendMessageIcon = styled(SendIcon)`
+  cursor: "pointer";
+  color: ${(props) => (props.active ? "#8b0000" : "lightgray")};
+`;
+
 export const TextLength = styled.p`
   margin-right: 5px;
   font-size: 12px;
@@ -91,4 +97,14 @@ export const TextLength = styled.p`
 export const Typography = styled.p`
   font-size: 12px;
   font-weight: 400;
+`;
+
+export const NoAccountBar = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #8b0000;
+  padding: 5px;
+  margin-bottom: -5px;
 `;

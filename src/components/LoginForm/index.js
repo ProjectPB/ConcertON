@@ -69,7 +69,7 @@ const LoginForm = () => {
               {errors.map((err, index) => {
                 return (
                   <Error key={index}>
-                    <WarningOutlined />
+                    <WarningOutlined fontSize="small" />
                     <Typography>{err}</Typography>
                   </Error>
                 );

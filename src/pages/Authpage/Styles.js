@@ -8,7 +8,7 @@ export const AuthpageContainer = styled.div`
 export const MainContainer = styled.div`
   display: grid;
   place-items: center;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 100px);
   padding: 0 20px;
 `;
 
@@ -49,4 +49,7 @@ export const Typography = styled.h1`
   text-transform: uppercase;
   color: white;
   margin-bottom: 15px;
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
 `;

@@ -3,8 +3,8 @@ import { useParams } from "react-router";
 import { useSelector } from "react-redux";
 import firebase from "firebase/app";
 import { db } from "../../firebase/utils";
-import SendIcon from "@material-ui/icons/Send";
 import Message from "../Message";
+import FormButton from "./../FormButton";
 import {
   ChatContainer,
   Header,
@@ -16,7 +16,10 @@ import {
   InputBottomContainer,
   TextLength,
   Typography,
+  NoAccountBar,
+  SendMessageIcon,
 } from "./Styles";
+import { Link } from "react-router-dom";
 
 const mapState = ({ user }) => ({
   currentUser: user.currentUser,
@@ -32,6 +35,7 @@ const Chat = () => {
   const [nextMessages, setNextMessages] = useState([]);
   const [lastVisibleMessage, setLastVisibleMessage] = useState();
   const [messagesCounter, setMessagesCounter] = useState(0);
+  const [writing, setWriting] = useState(false);
 
   useEffect(() => {
     db.collection("events")
@@ -68,6 +72,14 @@ const Chat = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nextMessages]);
+
+  useEffect(() => {
+    if (input.length === 0 || input.length > 200) {
+      setWriting(false);
+    } else {
+      setWriting(true);
+    }
+  }, [input]);
 
   const getNextMessages = (e) => {
     e.preventDefault();
@@ -120,6 +132,8 @@ const Chat = () => {
     }
   };
 
+  console.log(writing);
+
   return (
     <ChatContainer>
       <Header>Comments</Header>
@@ -143,22 +157,19 @@ const Chat = () => {
           />
           <InputBottomContainer>
             <TextLength>{input.length} / 200</TextLength>
-            <SendIcon
+            <SendMessageIcon
               onClick={sendMessageOnIconClick}
-              style={{
-                cursor: "pointer",
-                color:
-                  input.length === 0 || input.length > 200
-                    ? "lightgray"
-                    : "darkblue",
-              }}
+              active={writing}
             />
           </InputBottomContainer>
         </InputContainer>
       ) : (
-        <InputContainer>
+        <NoAccountBar>
           <Typography>Please Sign In to comment</Typography>
-        </InputContainer>
+          <Link to="/auth">
+            <FormButton primary>Sign In</FormButton>
+          </Link>
+        </NoAccountBar>
       )}
     </ChatContainer>
   );

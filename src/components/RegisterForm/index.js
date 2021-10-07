@@ -1,4 +1,3 @@
-import { WarningOutlined } from "@material-ui/icons";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +7,7 @@ import {
 } from "../../redux/User/user.actions";
 import FormButton from "../FormButton";
 import FormInput from "../FormInput";
+import { WarningOutlined } from "@material-ui/icons";
 import {
   Form,
   FormContainer,
@@ -92,7 +92,7 @@ const RegisterForm = () => {
               {errors.map((err, index) => {
                 return (
                   <Error key={index}>
-                    <WarningOutlined />
+                    <WarningOutlined fontSize="small" />
                     <Typography>{err}</Typography>
                   </Error>
                 );
