@@ -25,6 +25,7 @@ const Streams = () => {
           name={data?.name}
           timestamp={data?.timestamp?.toDate()?.toDateString()}
           image={data?.image}
+          genre={data?.genre}
         />
       ))}
     </StreamsContainer>

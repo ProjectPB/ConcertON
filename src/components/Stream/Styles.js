@@ -50,18 +50,41 @@ export const DataContainer = styled.div`
 export const Name = styled.h1`
   color: white;
   display: block;
-  font-size: 26px;
+  font-size: 18px;
   font-weight: 600;
 
-  @media (max-width: 600px) {
-    font-size: 16px;
+  @media (max-width: 768px) {
+    font-size: 14px;
   }
 `;
 
-export const Date = styled.h2`
+export const DetailsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+`;
+
+export const GenreContainer = styled.div`
+  margin-left: 10px;
+  padding-left: 5px;
+  border-left: 1px solid lightgray;
+  display: flex;
+  align-items: center;
+
+  .MuiSvgIcon-root {
+    color: white;
+    font-size: 18px;
+
+    @media (max-width: 600px) {
+      font-size: 12px;
+    }
+  }
+`;
+
+export const DetailTypography = styled.h2`
   display: block;
   color: lightgray;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 400;
 
   @media (max-width: 600px) {

@@ -1,16 +1,18 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-
+import { MusicNoteOutlined } from "@material-ui/icons";
 import {
   StreamContainer,
   DataContainer,
   Name,
-  Date,
   Img,
   ImgContainer,
+  DetailsContainer,
+  DetailTypography,
+  GenreContainer,
 } from "./Styles";
 
-const Stream = ({ id, name, timestamp, image }) => {
+const Stream = ({ id, name, timestamp, image, genre }) => {
   const history = useHistory();
 
   return (
@@ -24,7 +26,13 @@ const Stream = ({ id, name, timestamp, image }) => {
       </ImgContainer>
       <DataContainer>
         <Name>{name}</Name>
-        <Date>{timestamp}</Date>
+        <DetailsContainer>
+          <DetailTypography>{timestamp}</DetailTypography>
+          <GenreContainer>
+            <MusicNoteOutlined />
+            <DetailTypography>{genre}</DetailTypography>
+          </GenreContainer>
+        </DetailsContainer>
       </DataContainer>
     </StreamContainer>
   );
