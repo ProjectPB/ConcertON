@@ -7,20 +7,20 @@ export const ChatContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  height: auto;
+  min-width: 250px;
+  height: 100%;
   flex: 0.25;
   padding: 5px;
   margin-left: 10px;
   background-color: white;
   border-radius: 5px;
-  @media (max-width: 1200px) {
-    width: 100%;
+  @media (max-width: 768px) {
     flex: 1;
     margin: 10px auto;
     min-height: 300px;
-    max-width: 600px;
   }
 `;
+
 export const Header = styled.h1`
   font-size: 14px;
   font-weight: 500;

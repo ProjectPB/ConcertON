@@ -18,9 +18,17 @@
   margin-right: 4%;
 }
 
+html {
+  height: 100%;
+}
+
 :root {
   --swiper-theme-color: #fff !important;
   background-color: black;
+}
+
+#root {
+  height: 100%;
 }
 
 body {
@@ -29,4 +37,5 @@ body {
   overflow-x: hidden;
   max-width: 1400px;
   background-color: black;
+  height: 100%;
 }

@@ -7,31 +7,37 @@ export const PlayerContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  margin-right: 10px;
-  @media (max-width: 1200px) {
+  width: 100%;
+  @media (max-width: 768px) {
     flex: 0;
     margin: 0 auto;
-    max-width: 600px;
   }
 `;
 
 export const ScreenContainer = styled.div`
   position: relative;
-  height: fit-content;
+  height: 100%;
+  width: 100%;
+  background-color: #121212;
 `;
 
 export const Screen = styled(ReactPlayer)`
   height: 100%;
+  width: 100%;
 `;
 
 export const Title = styled.h1`
-  color: white;
   display: block;
-  padding: 10px 0;
+  color: white;
   font-size: 24px;
-  @media (max-width: 1200px) {
+  padding: 10px 0;
+  @media (max-width: 768px) {
     font-size: 16px;
     padding: 5px;
+  }
+
+  @media (max-height: 680px) {
+    display: none;
   }
 `;
 
@@ -45,6 +51,14 @@ export const TimerContainer = styled.div`
   transform: translate(-50%, -50%);
 `;
 
+export const Typography = styled.h2`
+  color: white;
+  font-size: 20px;
+  @media (max-width: 1200px) {
+    font-size: 12px;
+  }
+`;
+
 export const LoadingContainer = styled.div`
   height: 100%;
   width: 100%;
@@ -56,12 +70,4 @@ export const LoadingIcon = styled(ReactLoading)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-`;
-
-export const Typography = styled.h2`
-  color: white;
-  font-size: 20px;
-  @media (max-width: 1200px) {
-    font-size: 12px;
-  }
 `;

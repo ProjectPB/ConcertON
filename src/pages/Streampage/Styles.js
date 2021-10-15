@@ -8,8 +8,8 @@ export const MainContainer = styled.div`
   display: flex;
   height: calc(100% - 50px);
   padding: 0 10px 10px 10px;
-  @media (max-width: 1200px) {
+  @media (max-width: 768px) {
     flex-direction: column;
-    padding: 0;
+    padding: 0 10px;
   }
 `;
