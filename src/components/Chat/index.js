@@ -132,8 +132,6 @@ const Chat = () => {
     }
   };
 
-  console.log(writing);
-
   return (
     <ChatContainer>
       <Header>Comments</Header>
