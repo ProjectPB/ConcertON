@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
+
 import Loading from "./components/Loading";
 import Homepage from "./pages/Homepage";
 import Streampage from "./pages/Streampage";
 import Authpage from "./pages/Authpage";
+
+import BaseStyles from "./Styles.js";
 
 const mapState = ({ loading }) => ({
   slideshowLoaded: loading.slideshowLoaded,
@@ -28,6 +31,7 @@ const App = () => {
 
   return (
     <Router>
+      <BaseStyles />
       <Switch>
         <Route path="/live/:eventId">
           <Streampage />
