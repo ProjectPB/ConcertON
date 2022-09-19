@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import CountdownTimer from "../CountdownTimer";
 import {
   fetchStreamData,
   setStreamData,
 } from "./../../redux/Streams/streams.actions";
+import CountdownTimer from "../CountdownTimer";
+import background__video from "./../../assets/background.mp4";
+
 import {
   PlayerContainer,
   ScreenContainer,
@@ -45,11 +47,7 @@ const Player = () => {
     <PlayerContainer>
       <ScreenContainer>
         <Screen
-          url={
-            data?.url
-              ? data?.url
-              : "https://cdn.videvo.net/videvo_files/video/free/2013-09/large_watermarked/DiscoLights2Videvo_preview.mp4"
-          }
+          url={data?.url ? data?.url : background__video}
           loop
           playing={true}
           muted={true}
